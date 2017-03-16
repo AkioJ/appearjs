@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appear.js Sandbox</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="scripts/appear.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+    
+    <style>
+        /* 
+            html5doctor.com Reset Stylesheet
+            v1.6.1
+            Last Updated: 2010-09-17
+            Author: Richard Clark - http://richclarkdesign.com 
+            Twitter: @rich_clark
+        */
+        html, body, div, span, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        abbr, address, cite, code,
+        del, dfn, em, img, ins, kbd, q, samp,
+        small, strong, sub, sup, var,
+        b, i,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section, summary,
+        time, mark, audio, video 
+        {
+             margin:0;
+             padding:0;
+             border:0;
+             outline:0;
+             font-size:100%;
+             vertical-align:baseline;
+             background:transparent;
+        }
+        
+        /*---------------------------------------*/
+        body{
+            background-color: #e74c3c;
+            font-family: 'Roboto', sans-serif;
+            color:white;
+        }
+        .container{
+            width : 100%;
+        }
+        .aBoxJustForOffset{
+            height : 1500px;
+            font-size: 40vw;
+            text-align: center;
+        }
+        .appearjs{
+            font-size:50pt;
+            height : 500px;
+            width : 500px;
+            text-align: center;
+        }
+        .box{
+            height : 300px;
+            width : 300px;
+            line-height: 300px;
+        }
+        .box h1{
+            font-size : 30pt;
+            text-align: center;
+        }
+        .boxCenter{
+            margin:0 auto;
+        }
+        .aBoxWillAppearFromLeft{
+            background: #2ecc71;
+            
+        }
+        .aBoxWillAppearFromRight{
+            background: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <div class = "container">
+        <div class = "aBoxJustForOffset">
+            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+        </div>
+        <div class = "boxCenter appearjs">
+            <h1>AppearJs</h1>
+        </div>
+        <div class = "box boxCenter aBoxWillAppearFromLeft">
+            <h1>FromLeft</h1>
+        </div>
+    
+        <div class = "box boxCenter aBoxWillAppearFromRight">
+            <h1>FromRight</h1>
+        </div>
+    </div>
+    
+</body>
+</html>
