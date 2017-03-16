@@ -1,4 +1,6 @@
 function fromLeft($element){
+    var opacity = $element.css("opacity");
+   $element.css("opacity", opacity=="0"?1:opacity);
     var position = $element.css("position");
     $element.css("position", "relative");
     
@@ -6,6 +8,8 @@ function fromLeft($element){
     $element.parent().css("overflow", "hidden");
     
     var finalValue = $element.position().left-$element.parent().css("marginLeft").replace('px', '')+"px";
+    
+    $element.isActionEnd = false;
     TweenMax.fromTo($element,1,
     {
         css:{
@@ -20,6 +24,7 @@ function fromLeft($element){
         onComplete:function(){
             $element.parent().css("overflow", parentOverflow);
             $element.css("position", position);
+            onComplete($element);
         }
     });
 }
@@ -32,7 +37,8 @@ function fromRight($element){
     $element.parent().css("overflow", "hidden");
     
     var finalValue = $element.css("right");
-
+    $element.isActionEnd = false;
+    
     TweenMax.fromTo($element,1,
     {
         css:{
@@ -47,11 +53,13 @@ function fromRight($element){
         onComplete:function(){
             $element.parent().css("overflow", parentOverflow);
             $element.css("position", position);
+            onComplete($element);
         }
     });
 }
 
 function scaleFromCenter($element){
+    $element.isActionEnd = false;
     TweenMax.fromTo($element,1,
     {
         css:{
@@ -62,6 +70,9 @@ function scaleFromCenter($element){
         css:{
             scale:1
         },
-        ease:Power2.easeOut
+        ease:Power2.easeOut,
+        onComplete:onComplete,
+        onCompleteParams:[$element]
     });
 }
+

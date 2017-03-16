@@ -1,39 +1,68 @@
 (function ($) { 
     $(document).ready(function () {
-        $(document).on('scroll', onScroll)
+        setInterval( loop, 1000/25 );
     });
 })(jQuery);
 
-var list = [];
+var appearlist = [];
+var disappearlist = [];
 
-function onAppear($element, callback){
-    
+function onAppear($element){
     if($element.isAppear == undefined) {
         $element.isAppear = false;
         $element.css("opacity", "0");
     }
     
-    if($element.isAppear) return;
+    if($element.isAppear || !$element.isActionEnd) return;
     
     var topOfElement = $element.position().top + (($element.css("position")=="absolute"||$element.parent().css("position")=="relative")?$element.parent().position().top:0);
  
     if($(this).scrollTop()+window.innerHeight >= topOfElement){
-        if(callback!=undefined)
-            callback($element);
+        if($element.callback!=undefined)
+            $element.callback($element);
         $element.css("opacity", "1");
         $element.isAppear = true;
     }
 }
 
-function addElementOnAppearList($element, callback){
-    list.push({
-        element:$element,
-        callback:callback
+function onDisappear($element){
+    
+    if(!$element.isAppear || !$element.isActionEnd) return;
+    
+    var topOfElement = $element.position().top + (($element.css("position")=="absolute"||$element.parent().css("position")=="relative")?$element.parent().position().top:0);
+    
+    if($(this).scrollTop()+window.innerHeight < topOfElement){
+        if($element.callback!=undefined)
+            $element.callback($element);
+        $element.css("opacity", "0");
+        $element.isAppear = false;
+    }
+}
+
+function addElementOnAppearList($element, callback, haveToReplay){
+    haveToReplay = haveToReplay || false;
+    $element.isActionEnd = true;
+    $element.callback = callback;
+    $element.isAppear = undefined;
+    appearlist.push($element);
+    
+    if(haveToReplay)
+        disappearlist.push($element);
+}
+
+function loop(){
+    
+    $.each(appearlist, function(index){
+        onAppear(appearlist[index]);
+    });
+    
+    $.each(disappearlist, function(index){
+        onDisappear(disappearlist[index]);
     });
 }
 
-function onScroll(){
-    $.each(list, function(index){
-        onAppear(list[index].element, list[index].callback);
-    });
+function onComplete($element){
+    if($element==undefined)return;
+    
+    $element.isActionEnd = true;
 }
